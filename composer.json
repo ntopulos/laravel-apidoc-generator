@@ -12,6 +12,10 @@
         {
             "name": "Marcel Pociot",
             "email": "m.pociot@gmail.com"
+        },
+        {
+            "name": "Nikos Topulos",
+            "email": "nt@uptn.net"
         }
     ],
     "require": {
