@@ -11,7 +11,7 @@
 
 ```bash
 curl -X {{$parsedRoute['methods'][0]}} "{{config('app.docs_url') ?: config('app.url')}}/{{$parsedRoute['uri']}}" \
--H "Accept: application/json"@if(count($parsedRoute['parameters'])) \
+-H "Accept: application/vnd.cohabitat.v1+json"@if(count($parsedRoute['parameters'])) \
 @foreach($parsedRoute['parameters'] as $attribute => $parameter)
     -d "{{$attribute}}"="{{$parameter['value']}}" \
 @endforeach
@@ -29,13 +29,17 @@ var settings = {
 "data": {!! str_replace('    ','        ',json_encode(array_combine(array_keys($parsedRoute['parameters']), array_map(function($param){ return $param['value']; },$parsedRoute['parameters'])), JSON_PRETTY_PRINT)) !!},
     @endif
 "headers": {
-        "accept": "application/json"
+        "accept": "application/vnd.cohabitat.v1+json"
     }
 }
 
 $.ajax(settings).done(function (response) {
     console.log(response);
 });
+```
+
+```json
+{!! json_encode(array_combine(array_keys($parsedRoute['parameters']), array_map(function($param){ return $param['value']; },$parsedRoute['parameters'])), JSON_PRETTY_PRINT) !!}
 ```
 
 @if(in_array('GET',$parsedRoute['methods']) || isset($parsedRoute['showresponse']) && $parsedRoute['showresponse'])
