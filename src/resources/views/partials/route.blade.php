@@ -38,7 +38,12 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-@if(in_array('GET',$parsedRoute['methods']) || (isset($parsedRoute['showresponse']) && $parsedRoute['showresponse']))
+```json
+{!! json_encode(array_combine(array_keys($parsedRoute['parameters']), array_map(function($param){ return $param['value']; },$parsedRoute['parameters'])), JSON_PRETTY_PRINT) !!}
+```
+
+@if(in_array('GET',$parsedRoute['methods']) || isset($parsedRoute['showresponse']) && $parsedRoute['showresponse'])
+
 > Example response:
 
 ```json
